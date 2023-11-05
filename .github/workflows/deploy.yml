@@ -1,0 +1,20 @@
+name: deployment workflow
+on:
+  push:
+    branches: [main]
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: pulling
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ SECRETS.HOST }}
+          username: ${{ SECRETS.USERNAME }}
+          password: ${{ SECRETS.PASSWORD }}
+          port: ${{ SECRETS.PORT }}
+          script: |
+            cd cmsc389T-web-template
+            git pull
+
