@@ -5,6 +5,12 @@ services:
     #fill out the configuration here
     networks:
       - app-network
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: node:10-alpine
+    restart: unless-stopped
+    container_name: cmsc389t-web-template
   
   #the nginx configuration is given below
   #the website will run on localhost:80 
@@ -15,7 +21,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - web-root:/var/www/html
+      - web-root:/var/www/htmldocker-compose up -d --force-recreate
+
       - ./nginx-conf:/etc/nginx/conf.d
     depends_on:
       - nodejs
@@ -28,7 +35,7 @@ volumes:
     driver_opts:
       type: none
       #fill out your absolute path to your folder here
-      device: /absolute/path/to/web/template/folder
+      device: /Users/sadena/UMD Classes/Fall 2023/CMSC389T/cmsc389T-web-template
       o: bind
 
 networks:
